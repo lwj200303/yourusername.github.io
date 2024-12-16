@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>探索黑神话，走进山西</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">黑神话·山西</div>
+            <ul class="nav-links">
+                <li><a href="#intro" class="nav-link active">主题介绍</a></li>
+                <li><a href="#culture" class="nav-link">文化关联</a></li>
+                <li><a href="#spots" class="nav-link">景点推荐</a></li>
+                <li><a href="#food" class="nav-link">美食攻略</a></li>
+                <li><a href="#routes" class="nav-link">旅行路线</a></li>
+                <li><a href="#feedback" class="nav-link">互动反馈</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main class="page-container">
+        <!-- 页面指示器 -->
+        <div class="page-indicator">
+            <div class="indicator-dot active" data-page="intro"></div>
+            <div class="indicator-dot" data-page="culture"></div>
+            <div class="indicator-dot" data-page="spots"></div>
+            <div class="indicator-dot" data-page="food"></div>
+            <div class="indicator-dot" data-page="routes"></div>
+            <div class="indicator-dot" data-page="feedback"></div>
+        </div>
+
+        <!-- 版块1：游戏主题介绍 -->
+        <section id="intro" class="page active">
+            <div class="video-background">
+                <video autoplay muted loop playsinline id="bgVideo">
+                    <source src="videos/首页背景.mov" type="video/mp4">
+                </video>
+                <div class="video-overlay"></div>
+            </div>
+            <div class="hero-content fade-sequence">
+                <div class="vertical-title fade-item">探索黑神话，走进山西</div>
+                <div class="bottom-text fade-item">以《黑神话·悟空》为灵感，探索山西的壮丽山河与文化精髓</div>
+                <div class="explore-button-container fade-item">
+                    <button class="explore-button">开始探索</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 版块2：文化关联 -->
+        <section id="culture" class="page">
+            <div class="section-content">
+                <div class="centered-image-container fade-item draggable">
+                    <img src="images/culture/your-image.jpg" alt="文化图片">
+                </div>
+                <div class="bottom-left-image-container fade-item">
+                    <img src="images/culture/n.jpg" alt="文化图片">
+                </div>
+                <div class="bottom-right-image-container fade-item">
+                    <img src="images/culture/l.png" alt="文化图片">
+                </div>
+            </div>
+        </section>
+
+        <!-- 版块3：景点推荐 -->
+        <section id="spots" class="page">
+            <div class="section-content">
+                <h2>游戏中的神秘场景，现实中的壮丽景点</h2>
+                <!-- 添加景点内容 -->
+            </div>
+        </section>
+
+        <!-- 版块4：美食攻略 -->
+        <section id="food" class="page">
+            <div class="section-content">
+                <h2>打卡山西美味</h2>
+                <!-- 添加美食内容 -->
+            </div>
+        </section>
+
+        <!-- 版块5：旅行路线 -->
+        <section id="routes" class="page">
+            <div class="section-content">
+                <h2>解锁你的专属旅行路线</h2>
+                <!-- 添加路线内容 -->
+            </div>
+        </section>
+
+        <!-- 版块6：互动反馈 -->
+        <section id="feedback" class="page">
+            <div class="section-content">
+                <h2>你的故事，我们的足迹</h2>
+                <!-- 添加反馈内容 -->
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // 获取页面元素
+        const pages = document.querySelectorAll('.page');
+        const dots = document.querySelectorAll('.indicator-dot');
+        let isScrolling = false;
+
+        // 视频加载处理
+        const video = document.getElementById('bgVideo');
+        if (video) {
+            video.addEventListener('loadeddata', function() {
+                video.classList.add('loaded');
+                // 直接触发第一页动画
+                triggerPageAnimation(0);
+            });
+        }
+
+        // 统一的页面动画触发函数
+        function triggerPageAnimation(pageIndex) {
+            const page = pages[pageIndex];
+            if (!page) return;
+
+            const fadeItems = page.querySelectorAll('.fade-item');
+            const sequence = page.querySelector('.fade-sequence');
+
+            // 重置动画状态
+            fadeItems.forEach(item => item.classList.remove('show'));
+            if (sequence) sequence.classList.remove('show');
+
+            // 根据页面索引设置不同的动画效果
+            if (pageIndex === 0) {
+                // 第一页动画
+                setTimeout(() => {
+                    if (sequence) sequence.classList.add('show');
+                    fadeItems.forEach((item, idx) => {
+                        setTimeout(() => {
+                            item.classList.add('show');
+                        }, (idx + 1) * 600);
+                    });
+                }, 100);
+            } else if (pageIndex === 1) {
+                // 第二页动画
+                // 先显示主图
+                const mainImage = fadeItems[0];
+                setTimeout(() => {
+                    mainImage.classList.add('show');
+                    // 然后显示两个副图
+                    setTimeout(() => {
+                        fadeItems[1].classList.add('show');
+                        setTimeout(() => {
+                            fadeItems[2].classList.add('show');
+                        }, 300);
+                    }, 300);
+                }, 200);
+            }
+        }
+
+        // 更新页面
+        function updateActivePage(index) {
+            if (index < 0 || index >= pages.length) return;
+            
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[index].classList.add('active');
+            
+            // 更新页面状态
+            pages.forEach((page, i) => {
+                page.classList.remove('active');
+                if (i === index) {
+                    page.classList.add('active');
+                    triggerPageAnimation(i);
+                }
+            });
+            
+            // 更新导航栏活动状态
+            document.querySelectorAll('.nav-link').forEach((link, i) => {
+                link.classList.toggle('active', i === index);
+            });
+            
+            // 更新 URL
+            history.pushState(null, '', `#${pages[index].id}`);
+        }
+        
+        // 监滚动
+        window.addEventListener('scroll', () => {
+            if (!isScrolling) {
+                isScrolling = true;
+                setTimeout(() => {
+                    const scrollPosition = window.scrollY;
+                    const windowHeight = window.innerHeight;
+                    
+                    pages.forEach((page, index) => {
+                        const rect = page.getBoundingClientRect();
+                        if (Math.abs(rect.top) < windowHeight * 0.5) {
+                            updateActivePage(index);
+                        }
+                    });
+                    
+                    isScrolling = false;
+                }, 50);
+            }
+        });
+        
+        // 击指示器跳转
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                // 使用 window.scrollTo 来滚动
+                const targetPage = pages[index];
+                const targetOffset = targetPage.offsetTop;
+                
+                window.scrollTo({
+                    top: targetOffset,
+                    behavior: 'smooth'
+                });
+                
+                // 更新页面状态
+                setTimeout(() => {
+                    updateActivePage(index);
+                }, 100);
+            });
+        });
+
+        // 添加滚轮事件处理
+        let wheelTimeout;
+        window.addEventListener('wheel', (e) => {
+            if (!isScrolling) {
+                isScrolling = true;
+                clearTimeout(wheelTimeout);
+                
+                const currentIndex = Array.from(pages).findIndex(page => {
+                    const rect = page.getBoundingClientRect();
+                    return Math.abs(rect.top) < window.innerHeight * 0.5;
+                });
+                
+                const nextIndex = e.deltaY > 0 ? 
+                    Math.min(currentIndex + 1, pages.length - 1) : 
+                    Math.max(currentIndex - 1, 0);
+                
+                window.scrollTo({
+                    top: pages[nextIndex].offsetTop,
+                    behavior: 'smooth'
+                });
+                
+                updateActivePage(nextIndex);
+                
+                wheelTimeout = setTimeout(() => {
+                    isScrolling = false;
+                }, 800); // 增加冷却时间以匹配动画
+            }
+            e.preventDefault();
+        }, { passive: false });
+
+        // 添加点击事件
+        document.querySelector('.explore-button').addEventListener('click', function() {
+            try {
+                const nextPage = document.getElementById('culture');
+                if (!nextPage) {
+                    console.error('Target page not found');
+                    return;
+                }
+                const nextPageOffset = nextPage.offsetTop;
+                window.scrollTo({
+                    top: nextPageOffset,
+                    behavior: 'smooth'
+                });
+                
+                setTimeout(() => {
+                    updateActivePage(1);
+                }, 100);
+            } catch (error) {
+                console.error('Error during page navigation:', error);
+            }
+        });
+
+        // 添加拖动功能
+        let isDragging = false;
+        let startX;
+        let startTranslateX;
+        
+        const mainImage = document.querySelector('.centered-image-container');
+        
+        mainImage.addEventListener('mousedown', startDrag);
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('mouseup', stopDrag);
+        
+        function startDrag(e) {
+            isDragging = true;
+            startX = e.clientX;
+            const transform = window.getComputedStyle(mainImage).transform;
+            const matrix = new DOMMatrix(transform);
+            startTranslateX = matrix.m41;
+            mainImage.style.cursor = 'grabbing';
+            mainImage.style.transition = 'none';
+        }
+        
+        function drag(e) {
+            if (!isDragging) return;
+            
+            const deltaX = e.clientX - startX;
+            const newTranslateX = startTranslateX + deltaX;
+            
+            // 限制拖动范围
+            const containerWidth = mainImage.parentElement.offsetWidth;
+            const imageWidth = mainImage.offsetWidth;
+            const maxTranslate = containerWidth - imageWidth;
+            const boundedTranslateX = Math.max(maxTranslate, Math.min(0, newTranslateX));
+            
+            mainImage.style.transform = `translateX(${boundedTranslateX}px)`;
+        }
+        
+        function stopDrag() {
+            if (!isDragging) return;
+            isDragging = false;
+            mainImage.style.cursor = 'grab';
+            mainImage.style.transition = 'all 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
+        }
+    </script>
+</body>
+</html>

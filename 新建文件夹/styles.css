@@ -1,0 +1,805 @@
+/* 全局样式 */
+:root {
+    --primary-gold: #D4AF37;
+    --deep-black: #1A1A1A;
+    --chinese-red: #AA1F24;
+    --text-light: #FFFFFF;
+    --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+    --page-transition: 0.8s var(--transition-timing);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    line-height: 1.6;
+    color: var(--text-light);
+    background-color: var(--deep-black);
+}
+
+/* 导航栏样式 */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgba(26, 26, 26, 0.95);
+    z-index: 1000;
+    padding: 1rem 0;
+    border-bottom: 2px solid var(--primary-gold);
+    transition: all 0.3s ease;
+}
+
+.navbar-scrolled {
+    background-color: rgba(26, 26, 26, 0.98);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    padding: 0.5rem 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.logo {
+    color: var(--primary-gold);
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5),
+                 0 0 10px rgba(212, 175, 55, 0.3);
+    letter-spacing: 2px;
+    font-family: "STZhongsong", "华文中宋", serif;
+    transition: text-shadow 0.3s ease;
+}
+
+.logo:hover {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7),
+                 0 0 15px rgba(212, 175, 55, 0.5);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: var(--text-light);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    padding-bottom: 5px;
+    text-shadow: none;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary-gold);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-gold);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.3),
+                 0 0 20px rgba(212, 175, 55, 0.2);
+    transform: translateY(-2px);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+    box-shadow: 0 0 10px var(--primary-gold);
+}
+
+.nav-link.active {
+    color: var(--primary-gold);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.3),
+                 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .hero-content h1 {
+        font-size: 3.5rem;
+        left: 2rem;
+    }
+    
+    .hero-content p {
+        font-size: 1.2rem;
+        bottom: -20vh;
+    }
+} 
+
+/* 页面容器样式 */
+.page-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* 页面切换样式 */
+.page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+    will-change: opacity, visibility;
+    transform: translateZ(0);
+}
+
+.page.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 1;
+}
+
+/* 导航链接激活状态 */
+.nav-link.active {
+    color: var(--primary-gold);
+}
+
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* 各个页面的基本样式 */
+#intro {
+    background-image: url('../images/hero/wukong-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+#culture {
+    background-color: var(--deep-black);
+}
+
+#spots {
+    background-color: #1f1f1f;
+}
+
+#food {
+    background-color: var(--deep-black);
+}
+
+#routes {
+    background-color: #1f1f1f;
+}
+
+#feedback {
+    background-color: var(--deep-black);
+}
+
+/* 页面标题样式 */
+.content-wrapper h2 {
+    color: var(--primary-gold);
+    font-size: 2.8rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-family: "STXingkai", "华行楷", serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5),
+                 0 0 15px rgba(212, 175, 55, 0.3);
+    letter-spacing: 4px;
+}
+
+/* 添加页面切换 */
+.page-indicator {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.page-indicator-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.page-indicator-dot.active {
+    background-color: var(--primary-gold);
+    transform: scale(1.2);
+}
+
+/* 为标题添加悬停效果 */
+.hero-content h1:hover,
+.content-wrapper h2:hover {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7),
+                 0 0 20px rgba(212, 175, 55, 0.5);
+}
+
+/* 添加页面加载动 */
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--deep-black);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease;
+}
+
+body.loaded .loading {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* 优化页面切换画 */
+.page {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    transition: none;
+    overflow-y: auto;
+    will-change: transform;
+}
+
+.transitioning-out {
+    animation: slideOut var(--page-transition);
+}
+
+.transitioning-in {
+    animation: slideIn var(--page-transition);
+}
+
+/* 优化性能 */
+.page img {
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+/* 优化响应式设计 */
+@media (max-width: 768px) {
+    /* 添加汉堡菜单 */
+    .nav-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 60px;
+        right: -100%;
+        width: 100%;
+        height: calc(100vh - 60px);
+        background: rgba(26, 26, 26, 0.95);
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem;
+        transition: right 0.3s ease;
+        z-index: 1000;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .video-background {
+        height: 100vh;
+        position: absolute;
+    }
+
+    #bgVideo {
+        height: 100vh;
+        width: 100vw;
+    }
+
+    /* 优化移动端图片布局 */
+    .centered-image-container {
+        width: 100%;
+        margin: 0;
+    }
+
+    .bottom-left-image-container,
+    .bottom-right-image-container {
+        width: 45%;
+        position: relative;
+        margin: 10px auto;
+    }
+}
+
+/* 添加无障碍支持 */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* 首页动画样式 */
+.fade-sequence {
+    opacity: 0;
+    will-change: opacity;
+    transition: opacity 0.8s ease;
+}
+
+.fade-sequence.show {
+    opacity: 1;
+}
+
+.fade-item {
+    opacity: 0;
+    transform: translateY(30px);
+    will-change: transform, opacity;
+    transition: all 0.8s ease;
+}
+
+.fade-item.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 第二页图片动画样式 */
+#culture .fade-item {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+    will-change: transform, opacity;
+    transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+#culture .fade-item.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* 为副图片添加特殊的显示状态 */
+#culture .bottom-left-image-container.show,
+#culture .bottom-right-image-container.show {
+    opacity: 0.92;
+}
+
+/* 调整动画顺序 */
+#culture .centered-image-container {
+    transition-duration: 1.2s;
+}
+
+#culture .bottom-left-image-container {
+    transition-duration: 1s;
+}
+
+#culture .bottom-right-image-container {
+    transition-duration: 1s;
+}
+
+/* 视频背景样式 */
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+    will-change: transform;
+}
+
+#bgVideo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translateX(-50%) translateY(-49%) scale(1.24);
+    object-fit: cover;
+    opacity: 0;
+    will-change: transform;
+    transition: opacity 0.5s ease;
+}
+
+#bgVideo.loaded {
+    opacity: 1;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* 确保内容在视频上层 */
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* 优化移动端视频播放 */
+@media (max-width: 768px) {
+    #bgVideo {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/* 添加视频加载状态和后备方案 */
+.fallback-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('images/hero/wukong-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+
+/* 添加竖排标题样式 */
+.vertical-title {
+    position: absolute;
+    left: 4rem;
+    top: 50%;
+    transform: translateY(-50%);
+    writing-mode: vertical-rl;
+    font-size: 4.5rem;
+    color: var(--primary-gold);
+    font-family: "STXingkai", "华文行楷", serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5),
+                 0 0 15px rgba(212, 175, 55, 0.3);
+    letter-spacing: 0.57081rem;
+    line-height: 1;
+    z-index: 2;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    transition: all 0.8s ease;
+    margin-top: 0vh;
+}
+
+/* 页面指示器样式 */
+.page-indicator {
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.indicator-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.indicator-dot.active {
+    background-color: var(--primary-gold);
+    transform: scale(1.2);
+}
+
+/* 页面样式 */
+.page {
+    min-height: 100vh;
+    position: relative;
+    padding: 80px 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.page.active {
+    opacity: 1;
+}
+
+.section-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* 场动画样式 */
+.animate-item {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.animate-item.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 底部文字样式 */
+.bottom-text {
+    position: absolute;
+    bottom: -80vh;
+    left: 30%;
+    font-size: 2.2rem;
+    color: var(--primary-gold);
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6),
+                 0 0 20px rgba(212, 175, 55, 0.3);
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    font-family: "STXingkai", "华文行楷", serif;
+    letter-spacing: 4px;
+    line-height: 1.8;
+}
+
+.bottom-text.show {
+    opacity: 1;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .bottom-text {
+        font-size: 1.8rem;
+        bottom: -75vh;
+        left: 30%;
+        padding: 0 20px;
+        letter-spacing: 2px;
+    }
+}
+
+/* 探索按钮样式 */
+.explore-button-container {
+    position: absolute;
+    bottom: -65vh;  /* 调整按位置 */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.explore-button {
+    background: transparent;
+    color: var(--primary-gold);
+    border: 2px solid var(--primary-gold);
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    font-family: "STXingkai", "华文行楷", serif;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+.explore-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(212, 175, 55, 0.2),
+        transparent
+    );
+    transition: all 0.5s ease;
+}
+
+.explore-button:hover {
+    background: rgba(212, 175, 55, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+}
+
+.explore-button:hover::before {
+    left: 100%;
+}
+
+.explore-button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
+}
+
+/* 响应调整 */
+@media (max-width: 768px) {
+    .explore-button-container {
+        bottom: -60vh;
+    }
+    
+    .explore-button {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+}
+
+/* 居中图片容器样式 */
+.centered-image-container {
+    width: 1064px;
+    margin: -10px auto 0 auto;
+    overflow: hidden;
+    border-radius: 10px;
+    position: relative;
+    will-change: transform;
+    z-index: 3;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    cursor: grab;
+    mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 5%,
+        black 95%,
+        transparent 100%
+    );
+}
+
+.centered-image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    backface-visibility: hidden;
+}
+
+/* 主图悬停效果 */
+.centered-image-container:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.centered-image-container:hover img {
+    transform: scale(1.03);
+}
+
+/* 拖动时的样式 */
+.centered-image-container.dragging {
+    cursor: grabbing;
+    user-select: none;
+}
+
+/* 左下角图片容器样式 */
+.bottom-left-image-container {
+    width: 34.94%;
+    position: absolute;
+    left: -4.70%;
+    bottom: -4.28%;
+    overflow: hidden;
+    border-radius: 10px;
+    z-index: 2;
+    filter: brightness(0.9);
+    mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 15%,
+        black 85%,
+        transparent
+    );
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 15%,
+        black 85%,
+        transparent
+    );
+}
+
+.bottom-left-image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;  /* 保持图片比例 */
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .bottom-left-image-container {
+        width: 40%;
+        left: 5%;
+        bottom: 5%;
+    }
+}
+
+/* 右下角图片容器样式 */
+.bottom-right-image-container {
+    width: 34.39%;
+    position: absolute;
+    right: 71.05%;
+    bottom: 18.05%;
+    overflow: hidden;
+    border-radius: 10px;
+    z-index: 1;
+    filter: brightness(0.9);
+    mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 15%,
+        black 85%,
+        transparent
+    );
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 15%,
+        black 85%,
+        transparent
+    );
+}
+
+.bottom-right-image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .bottom-right-image-container {
+        width: 40%;
+        right: 5%;
+        bottom: 5%;
+    }
+}
+
+/* 副图悬停效果 */
+.bottom-left-image-container:hover,
+.bottom-right-image-container:hover {
+    filter: brightness(1.05);
+}
+
+.bottom-left-image-container:hover img,
+.bottom-right-image-container:hover img {
+    transform: scale(1.05);
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* 调整图片容器间距 */
+.section-content {
+    padding: 0 4rem;  /* 增加两侧间距 */
+    margin: 2rem auto;  /* 增加上下间距 */
+}
+
+/* 调整副图位置 */
+.bottom-left-image-container {
+    left: -2%;  /* 调整左图位置 */
+}
+
+.bottom-right-image-container {
+    right: 73%;  /* 调整右图位置 */
+}
